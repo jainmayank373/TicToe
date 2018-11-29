@@ -1,0 +1,165 @@
+<html>
+      <head>
+              <title>TicTack Toe</title>
+              <style>
+
+
+            .container{
+            display:flex;
+            flex-direction:row;
+           }
+/*ROW CLASS*/
+    .row1, .row2, .row3 {
+            height:40px;
+            width:40px;
+            border:1px solid #ff4444;
+            padding:10px;
+            text-align:center;
+        }
+
+button{
+            margin:25px;
+            height:30px;
+            width:120px;
+            background-color:#ff4444;
+            text-align: center;
+            border:0px ;
+            border-radius: 10px;
+
+        }
+.UserIn{
+            float: left;
+            color: #123;
+}
+/*Wrapper Class */
+   .tic{  
+    position: absolute;
+    width:200px;
+    height: 200px;
+    margin: auto;
+    padding: auto;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom: 0px;
+}
+    </style>
+      </head>
+      <body>
+          
+            <div class="tic"> 
+                    <div class="container">
+                        
+                        <div class="row1">
+                     
+                        </div> 
+                        <div class="row1">
+                  
+                        </div>
+                        <div class="row1">
+                  
+                        </div>
+                    </div>
+                    
+                    <div class="container">
+                        
+                        <div class="row1">
+
+                        </div> 
+                        <div class="row1">
+                  
+                        </div>
+                        <div class="row1">
+                  
+                        </div>
+                    </div>
+                    
+                    <div class="container">
+                        
+                        <div class="row1">
+                     
+                        </div> 
+                        <div class="row1">
+                  
+                        </div>
+                        <div class="row1">
+                  
+                        </div>
+                    </div>
+                  <div>
+                  <button onclick="fun()">Reset</button>
+                   <button onclick="winner()">Check Winner</button>
+                  </div>
+                  <h2 class="UserIn"></h2>
+                 
+            </div>
+      </body>
+        <script>
+        
+            //Accessing Heading Section 
+            var  user =  document.getElementsByClassName('UserIn');
+                 user[0].innerHTML = 'User Turn';
+            var turn = false;
+            var   col =  document.getElementsByClassName('row1');
+         
+            var winnerUser =0 ;
+             function TicToe(event){
+                    user[0].innerHTML = 'User Turn';
+                     
+
+                   
+                    this.style.backgroundColor = "green";
+                    user[0].innerHTML = 'Computer Turn';
+                  var  myVar =  setTimeout(function(){
+                            var  index1 = Math.floor(Math.random()*6);
+
+                            col[index1].style.backgroundColor="blue";
+
+                              
+                            user[0].innerHTML = 'User Turn';
+                                    
+                                      this.removeEventListener('click',TicToe,false);
+                    },500,false);
+
+                    //Removing Event Handler After Clicking
+                    this.removeEventListener('click',TicToe,false);
+                    }
+              
+
+            for(var i=0;i< col.length;i++){
+            var elem = col[i]; //Accessing The Row1
+	       
+                       // Attaching Event Handler to row1
+
+                    elem.addEventListener('click',TicToe);    }
+
+
+//Winner Code
+ function winner(){
+                var counter1 =0;
+                var counter2 =0;
+                                for(var i=0;i<col.length;i++){ 
+                                        if(col[i].style.backgroundColor == "green"){
+                                        counter1 = counter1 +i;
+                                        if(counter1 == 3 || counter1 == 9 || counter1 == 12 || counter1 == 21  || counter1 == 15   )
+                                        {alert("User Win");
+                                        return;}
+                                        }
+                                    
+
+                                }
+
+                                alert("Match Tie");
+ }
+
+
+//Reloading Page
+function fun(){
+    document.location.reload();
+}
+        </script>
+</html>
+
+
+
+ 
