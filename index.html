@@ -101,24 +101,38 @@ button{
                  user[0].innerHTML = 'User Turn';
             var turn = false;
             var   col =  document.getElementsByClassName('row1');
-         
+         var arr=[];
             var winnerUser =0 ;
              function TicToe(event){
-                    user[0].innerHTML = 'User Turn';
                      
-
-                   
+                    user[0].innerHTML = 'User Turn';
+                    var count = i;
                     this.style.backgroundColor = "green";
                     user[0].innerHTML = 'Computer Turn';
-                  var  myVar =  setTimeout(function(){
-                            var  index1 = Math.floor(Math.random()*6);
+                    
+                    var  myVar =  setTimeout(function(){
+                            arr.push(count);
+                            winner("green","You Win");
+                            winner("blue","Opps! You Lose");
+                            
+                            var index = checkBlankIndex();
+                            if(index != -1){
+                                
+                                arr.push(index);
+                                col[index].style.backgroundColor="blue";
 
-                            col[index1].style.backgroundColor="blue";
-
-                              
+                            }
+                            else {
+                                  
+                                   
+                                   if( winner("green","You Win") == -1 ||winner("blue","Opps! You Lose")==-1 )
+                            {alert("MAtch Tie");
+                            return;}
+                            }
+                                winner("blue","Opps! You Lose");
                             user[0].innerHTML = 'User Turn';
                                     
-                                      this.removeEventListener('click',TicToe,false);
+                            this.removeEventListener('click',TicToe,false);
                     },500,false);
 
                     //Removing Event Handler After Clicking
@@ -134,22 +148,47 @@ button{
                     elem.addEventListener('click',TicToe);    }
 
 
+function checkBlankIndex(){
+    var count=1;
+    var  index1 = Math.floor(Math.random()*6);
+    while(col[index1].style.backgroundColor == "blue" || col[index1].style.backgroundColor == "green"){
+                            var  index1 = Math.floor(Math.random()*9);    
+                            count++;
+                            if(count >=9 ) {return -1;}                          
+                            }
+    return index1;
+}
 //Winner Code
- function winner(){
-                var counter1 =0;
-                var counter2 =0;
-                                for(var i=0;i<col.length;i++){ 
-                                        if(col[i].style.backgroundColor == "green"){
-                                        counter1 = counter1 +i;
-                                        if(counter1 == 3 || counter1 == 9 || counter1 == 12 || counter1 == 21  || counter1 == 15   )
-                                        {alert("User Win");
-                                        return;}
-                                        }
-                                    
+ function winner(color,mess){
+     for(var winnerIndex = 1 ; winnerIndex < 9 ;winnerIndex++){
+                if(winnerIndex== 1 || winnerIndex == 7 ||  winnerIndex == 4){
+                    if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-1].style.backgroundColor ==color && col[winnerIndex+1].style.backgroundColor==color){
+                        alert(mess);
+                        return;
+                    }
+                    
 
-                                }
+                }
+                if(winnerIndex== 3 || winnerIndex == 4 ||  winnerIndex == 5){
+                    if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-3].style.backgroundColor ==color && col[winnerIndex+3].style.backgroundColor==color){
+                        alert(mess);
+                        return;
+                    }
+                     }
+            
+                 if(winnerIndex == 4 ){
+                    if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-4].style.backgroundColor ==color && col[winnerIndex+4].style.backgroundColor==color){
+                        alert(mess);
+                        return;
+                    }
+                    if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-2].style.backgroundColor ==color && col[winnerIndex+2].style.backgroundColor==color){
+                        alert(mess);
+                        return;
+                    }
+                    
 
-                                alert("Match Tie");
+ }}
+ return -1;
  }
 
 
