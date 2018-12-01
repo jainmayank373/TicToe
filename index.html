@@ -96,43 +96,70 @@ button{
       </body>
         <script>
         
-            //Accessing Heading Section 
-            var  user =  document.getElementsByClassName('UserIn');
-                 user[0].innerHTML = 'User Turn';
-            var turn = false;
-            var   col =  document.getElementsByClassName('row1');
-         var arr=[];
-            var winnerUser =0 ;
-             function TicToe(event){
-                     
-                    user[0].innerHTML = 'User Turn';
-                    var count = i;
-                    this.style.backgroundColor = "green";
-                    user[0].innerHTML = 'Computer Turn';
-                    
-                    var  myVar =  setTimeout(function(){
-                            arr.push(count);
-                            winner("green","You Win");
-                            winner("blue","Opps! You Lose");
-                            
-                            var index = checkBlankIndex();
-                            if(index != -1){
-                                
-                                arr.push(index);
-                                col[index].style.backgroundColor="blue";
+          (function(){
+                      
+                      //Accessing Heading Section 
+                      var  user =  document.getElementsByClassName('UserIn');
+                      user[0].innerHTML = 'User Turn';
+                      var turn = false;
+                      var   col =  document.getElementsByClassName('row1');
+                      var arr=[];
+                      var winnerUser =0 ;
 
-                            }
-                            else {
-                                  
-                                   
-                                   if( winner("green","You Win") == -1 ||winner("blue","Opps! You Lose")==-1 )
-                            {alert("MAtch Tie");
-                            return;}
-                            }
-                                winner("blue","Opps! You Lose");
-                            user[0].innerHTML = 'User Turn';
+                     //TicTacToe Function
+                     function TicToe(event){
+                     
+                                user[0].innerHTML = 'User Turn';
+                                var count = i;
+                                this.style.backgroundColor = "green";
+                                user[0].innerHTML = 'Computer Turn';
+                                
+                                var  myVar =  setTimeout(function(){
+                                arr.push(count);
+
+                                //Checking Winner
+                               if( winner("green","You Win") != -1 ){  
+
+                                   return ;
+                               }    //
+                               
+                               if(winner("blue","Opps! You Lose") != -1 ){  
+
+                                   return ;
+                               }
+                                
+
+                                                            
+                                var index = checkBlankIndex();
+                                if(index != -1){
                                     
-                            this.removeEventListener('click',TicToe,false);
+                                    arr.push(index);
+                                    col[index].style.backgroundColor="blue";
+
+                                }
+                                else {
+                                    
+                                    
+                                    if( winner("green","You Win") != -1 ){  
+
+                                   return ;
+                               }    //
+                               
+                              else if(winner("blue","Opps! You Lose") != -1 ){  
+
+                                   return ;
+                               }
+                                else 
+                                {alert("MAtch Tie");
+                                return;}
+                                }
+
+                                //Checking Winner
+                                winner("blue","Opps! You Lose");
+                                user[0].innerHTML = 'User Turn';
+                                    
+                                this.removeEventListener('click',TicToe,false);
+
                     },500,false);
 
                     //Removing Event Handler After Clicking
@@ -140,62 +167,69 @@ button{
                     }
               
 
-            for(var i=0;i< col.length;i++){
-            var elem = col[i]; //Accessing The Row1
-	       
-                       // Attaching Event Handler to row1
+                   for(var i=0;i< col.length;i++){
+                                    var elem = col[i]; //Accessing The Row1
 
-                    elem.addEventListener('click',TicToe);    }
+                                    // Attaching Event Handler to row1
+                
+                                    elem.addEventListener('click',TicToe);    }
 
 
-function checkBlankIndex(){
-    var count=1;
-    var  index1 = Math.floor(Math.random()*6);
-    while(col[index1].style.backgroundColor == "blue" || col[index1].style.backgroundColor == "green"){
-                            var  index1 = Math.floor(Math.random()*9);    
-                            count++;
-                            if(count >=9 ) {return -1;}                          
-                            }
-    return index1;
-}
-//Winner Code
- function winner(color,mess){
-     for(var winnerIndex = 1 ; winnerIndex < 9 ;winnerIndex++){
-                if(winnerIndex== 1 || winnerIndex == 7 ||  winnerIndex == 4){
-                    if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-1].style.backgroundColor ==color && col[winnerIndex+1].style.backgroundColor==color){
-                        alert(mess);
-                        return;
+                    function checkBlankIndex(){
+                                    var count=1;
+                                    var  index1 = Math.floor(Math.random()*6);
+                                    while(col[index1].style.backgroundColor == "blue" || col[index1].style.backgroundColor == "green"){
+                                                            var  index1 = Math.floor(Math.random()*9);    
+                                                            count++;
+                                                            if(count >=9 ) {return -1;}                          
+                                                            }
+                                    return index1;
+                                        }
+
+
+
+                    //Winner Code
+                    function winner(color,mess){
+                        for(var winnerIndex = 1 ; winnerIndex < 9 ;winnerIndex++){
+                                    if(winnerIndex== 1 || winnerIndex == 7 ||  winnerIndex == 4){
+                                        if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-1].style.backgroundColor ==color && col[winnerIndex+1].style.backgroundColor==color){
+                                            alert(mess);
+                                            return 1;
+                                        }
+                                        
+
+                                    }
+                                    if(winnerIndex== 3 || winnerIndex == 4 ||  winnerIndex == 5){
+                                        if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-3].style.backgroundColor ==color && col[winnerIndex+3].style.backgroundColor==color){
+                                            alert(mess);
+                                            return 1;
+                                        }
+                                        }
+                                
+                                    if(winnerIndex == 4 ){
+                                        if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-4].style.backgroundColor ==color && col[winnerIndex+4].style.backgroundColor==color){
+                                            alert(mess);
+                                            return 1 ;
+                                        }
+                                        if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-2].style.backgroundColor ==color && col[winnerIndex+2].style.backgroundColor==color){
+                                            alert(mess);
+                                            return 1;
+                                        }
+                                        
+
+                    }}
+                    return -1;
                     }
-                    
 
-                }
-                if(winnerIndex== 3 || winnerIndex == 4 ||  winnerIndex == 5){
-                    if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-3].style.backgroundColor ==color && col[winnerIndex+3].style.backgroundColor==color){
-                        alert(mess);
-                        return;
+
+                    //Reloading Page
+                  
+
+                            })();
+
+                              function fun(){
+                        window.location.reload();
                     }
-                     }
-            
-                 if(winnerIndex == 4 ){
-                    if(col[winnerIndex].style.backgroundColor == color && col[winnerIndex-4].style.backgroundColor ==color && col[winnerIndex+4].style.backgroundColor==color){
-                        alert(mess);
-                        return;
-                    }
-                    if(col[winnerIndex].style.backgroundColor ==color && col[winnerIndex-2].style.backgroundColor ==color && col[winnerIndex+2].style.backgroundColor==color){
-                        alert(mess);
-                        return;
-                    }
-                    
-
- }}
- return -1;
- }
-
-
-//Reloading Page
-function fun(){
-    document.location.reload();
-}
         </script>
 </html>
 
